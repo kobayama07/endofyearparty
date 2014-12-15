@@ -33,7 +33,6 @@ namespace QuizWebApp.Controllers
         [HttpPost]
         public ActionResult CurrentQuestion(int questionID)
         {
-            this.DB.Contexts.First().ArrivalNo = 1;
             this.DB.Contexts.First().CurrentQuestionID = questionID;
             this.DB.SaveChanges();
 

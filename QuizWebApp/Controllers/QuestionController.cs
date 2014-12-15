@@ -22,11 +22,11 @@ namespace QuizWebApp.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.UserId();
-            var questins = this.DB.Questions
+            var questions = this.DB.Questions
                 .Where(q => q.OwnerUserId == userId)
                 .OrderBy(q => q.CreateAt)
                 .ToArray();
-            return View(questins);
+            return View(questions);
         }
 
         [HttpGet]
@@ -47,6 +47,8 @@ namespace QuizWebApp.Controllers
 
             model.OwnerUserId = User.Identity.UserId();
             model.CreateAt = DateTime.UtcNow;
+            //★
+            model.ArrivalNo = 1;
             this.DB.Questions.Add(model);
             this.DB.SaveChanges();
 

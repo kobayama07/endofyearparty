@@ -83,5 +83,8 @@ namespace QuizWebApp.Models
         {
             this.CreateAt = DateTime.UtcNow;
         }
+        
+        //★
+        public int ArrivalNo;
     }
 }

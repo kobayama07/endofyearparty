@@ -64,7 +64,6 @@ namespace QuizWebApp.Hubs
         {
             using (var db = new QuizWebAppDb())
             {
-                var context = db.Contexts.First();
             	// Userが選択した際の挙動
                 var playerId = Context.User.Identity.UserId();
                 var questionId = db.Contexts.First().CurrentQuestionID;
@@ -72,9 +71,11 @@ namespace QuizWebApp.Hubs
                 answer.ChosenOptionIndex = answerIndex;
                 answer.Status = AnswerStateType.Pending;/*entried*/
                 answer.AnsweredTime = DateTime.UtcNow;
-                //★ ADDArrivalNo
-                answer.Number = context.ArrivalNo;
-                context.ArrivalNo ++;
+
+                var currentQuestion = db.Questions.Find(questionId);
+                //★ AddArrivalNo
+                answer.Number = currentQuestion.ArrivalNo;
+                currentQuestion.ArrivalNo ++;
 
                 db.SaveChanges();
             }
