@@ -23,6 +23,9 @@ namespace QuizWebApp.Models
         /// </summary>
         public AnswerStateType Status { get; set; }
 
+        // Added: 20141215
         public DateTime AnsweredTime { get; set; }
+
+        public int Score { get; set; }
     }
 }
