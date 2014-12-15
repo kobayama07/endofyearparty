@@ -45,9 +45,9 @@ namespace QuizWebApp.Hubs
             {
                 var playerId = Context.User.Identity.UserId();
                 var questionId = db.Contexts.First().CurrentQuestionID;
-                var ansewer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
-                ansewer.ChoosedOptionIndex = answerIndex;
-                ansewer.Status = AnswerStateType.Pending;/*entried*/
+                var answer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
+                answer.ChoosedOptionIndex = answerIndex;
+                answer.Status = AnswerStateType.Pending;/*entried*/
 
                 db.SaveChanges();
             }
