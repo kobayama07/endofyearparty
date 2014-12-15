@@ -27,6 +27,7 @@ namespace QuizWebApp.Hubs
                         .ToList();
                     var currentQuestion = db.Questions.Find(context.CurrentQuestionID);
 
+                    // If chosen option is correct, answer state is set to "Correct".
                     answers
                         .ForEach(a => a.Status =
                             a.ChosenOptionIndex == currentQuestion.IndexOfCorrectOption
@@ -43,11 +44,13 @@ namespace QuizWebApp.Hubs
         {
             using (var db = new QuizWebAppDb())
             {
+            	// Userが選択した際の挙動
                 var playerId = Context.User.Identity.UserId();
                 var questionId = db.Contexts.First().CurrentQuestionID;
                 var answer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
                 answer.ChosenOptionIndex = answerIndex;
                 answer.Status = AnswerStateType.Pending;/*entried*/
+                // answer.AnsweredTime = DateTime.UtcNow;
 
                 db.SaveChanges();
             }

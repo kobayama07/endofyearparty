@@ -13,7 +13,7 @@ namespace QuizWebApp.Models
 
         /// <summary>
         /// 0: "please wait."
-        /// 1: "choice the answer."
+        /// 1: "choose the answer."
         /// 2: "closed."
         /// 3: "show correct answer."
         /// </summary>
