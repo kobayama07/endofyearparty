@@ -29,7 +29,7 @@ namespace QuizWebApp.Hubs
 
                     answers
                         .ForEach(a => a.Status =
-                            a.ChoosedOptionIndex == currentQuestion.IndexOfCorrectOption
+                            a.ChosenOptionIndex == currentQuestion.IndexOfCorrectOption
                             ? AnswerStateType.Correct : AnswerStateType.Incorrect);
                 }
 
@@ -46,7 +46,7 @@ namespace QuizWebApp.Hubs
                 var playerId = Context.User.Identity.UserId();
                 var questionId = db.Contexts.First().CurrentQuestionID;
                 var answer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
-                answer.ChoosedOptionIndex = answerIndex;
+                answer.ChosenOptionIndex = answerIndex;
                 answer.Status = AnswerStateType.Pending;/*entried*/
 
                 db.SaveChanges();
