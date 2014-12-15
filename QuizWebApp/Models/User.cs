@@ -14,5 +14,9 @@ namespace QuizWebApp.Models
         public string Name { get; set; }
 
         public DateTime? AttendAsPlayerAt { get; set; }
+
+        //★
+        public int Score { get; set; }
+
     }
 }

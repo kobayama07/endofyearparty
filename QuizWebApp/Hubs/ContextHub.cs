@@ -70,7 +70,7 @@ namespace QuizWebApp.Hubs
                 answer.ChosenOptionIndex = answerIndex;
                 answer.Status = AnswerStateType.Pending;/*entried*/
                 answer.AnsweredTime = DateTime.UtcNow;
-                
+                //★ ADDArrivalNo
                 answer.Number = Context.ArrivalNo;
                 Context.ArrivalNo ++;
 

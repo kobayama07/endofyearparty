@@ -16,7 +16,7 @@
         <tr>
             <td>@player.Name</td>
             <td class="score">
-                @Model.Answers.Count(a => a.PlayerID == player.UserId && a.Status == AnswerStateType.Correct)
+                @Model.player.Score
             </td>
             @foreach(var q in Model.Questions.ToList())
             {

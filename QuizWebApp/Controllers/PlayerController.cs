@@ -31,11 +31,11 @@ namespace QuizWebApp.Controllers
             var context = this.DB.Contexts.First();
             var playerID = this.User.Identity.UserId();
             var questionID = this.DB.Contexts.First().CurrentQuestionID;
-            var ansewer = this.DB.Answers.FirstOrDefault(a => a.PlayerID == playerID && a.QuestionID == questionID);
-            if (ansewer == null)
+            var answer = this.DB.Answers.FirstOrDefault(a => a.PlayerID == playerID && a.QuestionID == questionID);
+            if (answer == null)
             {
-                ansewer = new Answer { PlayerID = playerID, QuestionID = questionID, ChoosedOptionIndex = -1 };
-                this.DB.Answers.Add(ansewer);
+                answer = new Answer { PlayerID = playerID, QuestionID = questionID, ChosenOptionIndex = -1 };
+                this.DB.Answers.Add(answer);
                 this.DB.SaveChanges();
             }
 
