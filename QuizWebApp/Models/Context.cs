@@ -18,5 +18,8 @@ namespace QuizWebApp.Models
         /// 3: "show correct answer."
         /// </summary>
         public ContextStateType CurrentState { get; set; }
+        
+        //★
+        public int ArrivalNo{ get; set;}
     }
 }

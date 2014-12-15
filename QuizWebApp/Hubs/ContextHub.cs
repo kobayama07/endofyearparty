@@ -32,8 +32,27 @@ namespace QuizWebApp.Hubs
                         .ForEach(a => a.Status =
                             a.ChosenOptionIndex == currentQuestion.IndexOfCorrectOption
                             ? AnswerStateType.Correct : AnswerStateType.Incorrect);
-                }
 
+                    //配布ポイント決定 answerで正解、不正解のユーザID取得->不正解ユーザのポイントを半分にする＋半分ずつを合計→正解ユーザで山分け　
+                    var correctAnswers = answers.Where(a => a.QuestionID == context.CurrentQuestionID && a.Status == AnswerStateType.Correct).ToList();
+                    // **SORTしたい**
+                    // 正解
+                    List<string> correctPlayers = new List<string>();
+                    int distributePoint = 100;
+                    //正解ユーザに配布
+                     foreach (var a in correctAnswers)
+                     {
+                         var playerID = a.PlayerID;
+                         var user = users.First(u => u.UserId == playerID);
+                         int score = user.Score;
+                         user.Score = score + distributePoint;
+                         if(distributePoint != 1){
+                             distributePoint -= 1;
+                         }
+                         correctPlayers.Add(playerID);
+                     }
+
+                }
                 db.SaveChanges();
             }
 
@@ -50,7 +69,10 @@ namespace QuizWebApp.Hubs
                 var answer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
                 answer.ChosenOptionIndex = answerIndex;
                 answer.Status = AnswerStateType.Pending;/*entried*/
-                // answer.AnsweredTime = DateTime.UtcNow;
+                answer.AnsweredTime = DateTime.UtcNow;
+                
+                answer.Number = Context.ArrivalNo;
+                Context.ArrivalNo ++;
 
                 db.SaveChanges();
             }
