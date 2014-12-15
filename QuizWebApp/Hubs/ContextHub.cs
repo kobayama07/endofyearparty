@@ -27,12 +27,32 @@ namespace QuizWebApp.Hubs
                         .ToList();
                     var currentQuestion = db.Questions.Find(context.CurrentQuestionID);
 
+                    // If chosen option is correct, answer state is set to "Correct".
                     answers
                         .ForEach(a => a.Status =
-                            a.ChoosedOptionIndex == currentQuestion.IndexOfCorrectOption
+                            a.ChosenOptionIndex == currentQuestion.IndexOfCorrectOption
                             ? AnswerStateType.Correct : AnswerStateType.Incorrect);
-                }
 
+                    //配布ポイント決定 answerで正解、不正解のユーザID取得->不正解ユーザのポイントを半分にする＋半分ずつを合計→正解ユーザで山分け　
+                    var correctAnswers = answers.Where(a => a.QuestionID == context.CurrentQuestionID && a.Status == AnswerStateType.Correct).ToList();
+                    // **SORTしたい**
+                    // 正解
+                    List<string> correctPlayers = new List<string>();
+                    int distributePoint = 100;
+                    //正解ユーザに配布
+                     foreach (var a in correctAnswers)
+                     {
+                         var playerID = a.PlayerID;
+                         var user = users.First(u => u.UserId == playerID);
+                         int score = user.Score;
+                         user.Score = score + distributePoint;
+                         if(distributePoint != 1){
+                             distributePoint -= 1;
+                         }
+                         correctPlayers.Add(playerID);
+                     }
+
+                }
                 db.SaveChanges();
             }
 
@@ -43,11 +63,16 @@ namespace QuizWebApp.Hubs
         {
             using (var db = new QuizWebAppDb())
             {
+            	// Userが選択した際の挙動
                 var playerId = Context.User.Identity.UserId();
                 var questionId = db.Contexts.First().CurrentQuestionID;
-                var ansewer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
-                ansewer.ChoosedOptionIndex = answerIndex;
-                ansewer.Status = AnswerStateType.Pending;/*entried*/
+                var answer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
+                answer.ChosenOptionIndex = answerIndex;
+                answer.Status = AnswerStateType.Pending;/*entried*/
+                answer.AnsweredTime = DateTime.UtcNow;
+                
+                answer.Number = Context.ArrivalNo;
+                Context.ArrivalNo ++;
 
                 db.SaveChanges();
             }
