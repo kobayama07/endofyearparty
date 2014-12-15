@@ -26,6 +26,7 @@ namespace QuizWebApp.Hubs
                         .Where(a => a.QuestionID == context.CurrentQuestionID)
                         .ToList();
                     var currentQuestion = db.Questions.Find(context.CurrentQuestionID);
+                    var users = db.Users.ToList();
 
                     // If chosen option is correct, answer state is set to "Correct".
                     answers
@@ -63,6 +64,7 @@ namespace QuizWebApp.Hubs
         {
             using (var db = new QuizWebAppDb())
             {
+                var context = db.Contexts.First();
             	// Userが選択した際の挙動
                 var playerId = Context.User.Identity.UserId();
                 var questionId = db.Contexts.First().CurrentQuestionID;
@@ -71,8 +73,8 @@ namespace QuizWebApp.Hubs
                 answer.Status = AnswerStateType.Pending;/*entried*/
                 answer.AnsweredTime = DateTime.UtcNow;
                 //★ ADDArrivalNo
-                answer.Number = Context.ArrivalNo;
-                Context.ArrivalNo ++;
+                answer.Number = context.ArrivalNo;
+                context.ArrivalNo ++;
 
                 db.SaveChanges();
             }
