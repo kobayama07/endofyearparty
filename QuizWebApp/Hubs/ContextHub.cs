@@ -53,7 +53,7 @@ namespace QuizWebApp.Hubs
                          int score = user.Score;
                          if(orderNum > totalNum - aPointNum)
                          {
-                             user.Score = score + (orderNum - totalNum - aPointNum) * distributePoint / aPointNum;
+                             user.Score = score + (orderNum - totalNum + aPointNum) * distributePoint / aPointNum;
                          }
                          else
                          {
