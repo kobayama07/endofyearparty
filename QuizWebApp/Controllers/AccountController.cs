@@ -102,6 +102,8 @@ namespace QuizWebApp.Controllers
             {
                 if (db.Users.Find(user.UserId) == null)
                 {
+                    //★ 初期スコア配布
+                    user.Score = 0;
                     db.Users.Add(user);
                     db.SaveChanges();
                 }
