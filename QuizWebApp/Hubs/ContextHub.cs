@@ -36,9 +36,8 @@ namespace QuizWebApp.Hubs
 
                     //配布ポイント決定
                     var correctAnswers = answers.Where(a => a.QuestionID == context.CurrentQuestionID && a.Status == AnswerStateType.Correct).ToList();
-                    // **SORT**
                     correctAnswers.Sort((a, b) => a.Number - b.Number);
-
+                    context.ArrivalNum = 1;
                     int additionalPointRatio = 80;
                     int totalNum = correctAnswers.Count();
                     int aPointNum = totalNum * additionalPointRatio / 100;
@@ -53,12 +52,13 @@ namespace QuizWebApp.Hubs
                          int score = user.Score;
                          if(orderNum > totalNum - aPointNum)
                          {
-                             user.Score = score + (orderNum - totalNum + aPointNum) * distributePoint / aPointNum;
+                             a.GotScore = (orderNum - (totalNum - aPointNum))* distributePoint / aPointNum;
                          }
                          else
                          {
-                             user.Score = score + 1;
+                             a.GotScore = 1;
                          }
+                         user.Score = score + a.GotScore;
                          orderNum ++;
                      }
                 }

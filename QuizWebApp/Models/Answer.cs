@@ -24,7 +24,7 @@ namespace QuizWebApp.Models
         public AnswerStateType Status { get; set; }
 
         // ★
-        //public DateTime AnsweredTime { get; set; }
         public int Number { get; set; }
+        public int GotScore { get; set; }
     }
 }
