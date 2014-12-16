@@ -10,6 +10,7 @@
     var correctOption = q.GetOptions()[q.IndexOfCorrectOption - 1];
     var user = Model.Users.First(u => u.UserId == playerID);
 }
+<h4>現在のスコア：@(user.Score)</h4>
 <h3>問題</h3>
 
 <div class="well well-small">
@@ -71,4 +72,3 @@
         <div>@Html.FormatToHtml(q.Comment, q.CommentFormat)</div>
     }
 </div>
-<h4>現在のスコア：@(user.Score)</h4>

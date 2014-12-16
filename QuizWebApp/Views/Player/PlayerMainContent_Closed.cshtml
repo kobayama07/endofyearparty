@@ -10,6 +10,7 @@
     //★
     var user = Model.Users.First(u => u.UserId == playerID);
 }
+<h4>現在のスコア：@(user.Score)</h4>
 <h3>問題</h3>
 
 <div class="well well-small">
@@ -39,4 +40,3 @@
 </div>
 
 <p class="label label-wait"><i class="icon-info-sign icon-white"></i> 司会者によって正解が表示されるまで<br>そのままお待ちください。</p>
-<h4>現在のスコア：@(user.Score)</h4>

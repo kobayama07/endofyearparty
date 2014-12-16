@@ -5,5 +5,5 @@
     var playerID = this.User.Identity.UserId();
     var user = Model.Users.First(u => u.UserId == playerID);
 }
-<p class="label label-wait"><i class="icon-info-sign icon-white"></i> 司会者からクイズ問題が出題されるまで<br>そのままお待ちください。</p>
 <h4>現在のスコア：@(user.Score)</h4>
+<p class="label label-wait"><i class="icon-info-sign icon-white"></i> 司会者からクイズ問題が出題されるまで<br>そのままお待ちください。</p>
