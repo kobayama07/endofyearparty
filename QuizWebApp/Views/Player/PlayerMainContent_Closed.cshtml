@@ -6,7 +6,7 @@
     var q = Model.Questions.Find(Model.Contexts.First().CurrentQuestionID);
     var playerID = this.User.Identity.UserId();
     var yourAns = Model.Answers.First(a => a.PlayerID == playerID && a.QuestionID == q.QuestionId);
-    var chosen = yourAns.chosenOptionIndex >= 0 ? q.GetOptions()[yourAns.ChosenOptionIndex - 1] : null;
+    var chosen = yourAns.ChosenOptionIndex >= 0 ? q.GetOptions()[yourAns.ChosenOptionIndex - 1] : null;
     //★
     var user = Model.Users.First(u => u.UserId == playerID);
 }
