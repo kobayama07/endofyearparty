@@ -79,12 +79,13 @@ namespace QuizWebApp.Models
         [Display(Name = "投稿日時")]
         public DateTime CreateAt { get; set; }
 
+        //★
+        public int ArrivalNo;
+
         public Question()
         {
             this.CreateAt = DateTime.UtcNow;
         }
         
-        //★
-        public int ArrivalNo;
     }
 }
