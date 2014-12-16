@@ -83,8 +83,8 @@ namespace QuizWebApp.Hubs
 
                 var currentQuestion = db.Questions.Find(questionId);
                 //★ AddArrivalNo
-                answer.Number = currentQuestion.ArrivalNo;
-                currentQuestion.ArrivalNo ++;
+                answer.Number = currentQuestion.ArrivalNum;
+                currentQuestion.ArrivalNum += 1;
 
                 db.SaveChanges();
             }

@@ -80,7 +80,7 @@ namespace QuizWebApp.Models
         public DateTime CreateAt { get; set; }
 
         //★
-        public int ArrivalNo;
+        public int ArrivalNum;
 
         public Question()
         {

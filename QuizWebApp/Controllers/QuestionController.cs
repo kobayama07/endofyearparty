@@ -48,7 +48,7 @@ namespace QuizWebApp.Controllers
             model.OwnerUserId = User.Identity.UserId();
             model.CreateAt = DateTime.UtcNow;
             //★
-            model.ArrivalNo = 1;
+            model.ArrivalNum = 1;
             this.DB.Questions.Add(model);
             this.DB.SaveChanges();
 
