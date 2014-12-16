@@ -70,7 +70,7 @@ namespace QuizWebApp.Hubs
                 var answer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
                 answer.ChosenOptionIndex = answerIndex;
                 answer.Status = AnswerStateType.Pending;/*entried*/
-                answer.AnsweredTime = DateTime.UtcNow;
+                //answer.AnsweredTime = DateTime.UtcNow;
 
                 var currentQuestion = db.Questions.Find(questionId);
                 //★ AddArrivalNo
