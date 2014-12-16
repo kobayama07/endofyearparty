@@ -11,7 +11,7 @@
         }
     </tr>
 
-    @Model.Players.Sort((a, b) => a.Score - b.Score);
+    @Model.Players.OrderBy(a=> a.Score);
 
     @foreach (var player in Model.Players)
     {
