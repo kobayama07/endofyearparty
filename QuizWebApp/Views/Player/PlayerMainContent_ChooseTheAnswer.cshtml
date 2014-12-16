@@ -4,7 +4,11 @@
 
 @{
     var q = Model.Questions.Find(Model.Contexts.First().CurrentQuestionID);
+    var playerID = this.User.Identity.UserId();
+    var user = Model.Users.First(u => u.UserId == playerID);
 }
+<h4>現在のスコア：@(user.Score)</h4>
+
 <h3>問題</h3>
 
 <div class="well well-small">

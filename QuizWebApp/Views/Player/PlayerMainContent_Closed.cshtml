@@ -10,8 +10,7 @@
     //★
     var user = Model.Users.First(u => u.UserId == playerID);
 }
-
-<h3>現在のスコア：@(user.Score)</h3>
+<h4>現在のスコア：@(user.Score)</h4>
 
 <h3>問題</h3>
 
@@ -41,4 +40,4 @@
     </div>
 </div>
 
-<p class="label label-wait"><i class="icon-info-sign icon-white"></i> 司会者によって正解が表示されるまで、そのままお待ちください。</p>
+<p class="label label-wait"><i class="icon-info-sign icon-white"></i> 司会者によって正解が表示されるまで<br>そのままお待ちください。</p>
