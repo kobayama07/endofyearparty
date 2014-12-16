@@ -2,7 +2,7 @@
 @using QuizWebApp.Models
 
 @{
-    var p = Model.Players.OrderBy(a=> a.Score);
+    var p = Model.Players.OrderByDescending(a=> a.Score);
 }
 
 <table class="dashboard">2F
