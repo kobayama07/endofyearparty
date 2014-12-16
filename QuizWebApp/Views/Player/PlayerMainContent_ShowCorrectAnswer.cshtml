@@ -42,7 +42,7 @@
     @if (yourAns.Status == AnswerStateType.Correct)
     {
         <h3 class="correct">正解! :)</h3>
-        @if (@yourAns.GotScore > 1)
+        if (@yourAns.GotScore > 1)
         {
             <h3 class="correct">WAO!! You got @(yourAns.GotScore) point!! :)</h3>
         }
