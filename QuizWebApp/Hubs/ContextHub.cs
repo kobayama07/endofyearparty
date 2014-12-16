@@ -41,7 +41,7 @@ namespace QuizWebApp.Hubs
 
                     double additionalPointRatio = 0.2;
                     int totalNum = correctAnswers.Count();
-                    int aPointNum = totalNum * additionalPointRatio + 1;
+                    int aPointNum = (int)(totalNum * additionalPointRatio + 1);
                     int distributePoint = 100;
                     int orderNum = 1;
 
