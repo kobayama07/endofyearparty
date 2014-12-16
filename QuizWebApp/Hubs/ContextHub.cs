@@ -39,7 +39,7 @@ namespace QuizWebApp.Hubs
                     // **SORT**
                     correctAnswers.Sort((a, b) => a.Number - b.Number);
 
-                    int additionalPointRatio = 10;
+                    int additionalPointRatio = 80;
                     int totalNum = correctAnswers.Count();
                     int aPointNum = totalNum * additionalPointRatio / 100;
                     int distributePoint = 100;
