@@ -57,7 +57,7 @@ namespace QuizWebApp.Hubs
                          }
                          else
                          {
-                         	user.Score = score + 1;
+                             user.Score = score + 1;
                          }
                          orderNum ++;
                      }

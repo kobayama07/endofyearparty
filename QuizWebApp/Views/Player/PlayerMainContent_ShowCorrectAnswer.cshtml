@@ -8,7 +8,10 @@
     var yourAns = Model.Answers.First(a => a.PlayerID == playerID && a.QuestionID == q.QuestionId);
     var chosen = yourAns.chosenOptionIndex >= 0 ? q.GetOptions()[yourAns.chosenOptionIndex - 1] : null;
     var correctOption = q.GetOptions()[q.IndexOfCorrectOption - 1];
+    var user = Model.Users.First(u => u.UserId == playerID);
 }
+
+<h3>現在のスコア：@(user.Score)</h3>
 
 <h3>問題</h3>
 
@@ -29,10 +32,10 @@
         else
         {
             <div>@(chosen.Option)</div>
-            if (string.IsNullOrEmpty(chosen.OptionImage) == false)
+            @*if (string.IsNullOrEmpty(chosen.OptionImage) == false)
             {
                 <img src="@chosen.OptionImage" />
-            }
+            }*@
         }
     </div>
 
@@ -53,7 +56,6 @@
             }
         </div>
     }
-    //★
     <h3>回答順：@(yourAns.Number)</h3>
 </div>
 
