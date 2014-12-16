@@ -38,9 +38,10 @@ namespace QuizWebApp.Hubs
                     var correctAnswers = answers.Where(a => a.QuestionID == context.CurrentQuestionID && a.Status == AnswerStateType.Correct).ToList();
                     correctAnswers.Sort((a, b) => a.Number - b.Number);
                     context.ArrivalNum = 1;
-                    int additionalPointRatio = 80;
+
+                    int additionalPointRatio = 10;
                     int totalNum = correctAnswers.Count();
-                    int aPointNum = totalNum * additionalPointRatio / 100;
+                    int aPointNum = totalNum * additionalPointRatio / 100 + 1;
                     int distributePoint = 100;
                     int orderNum = 1;
 
