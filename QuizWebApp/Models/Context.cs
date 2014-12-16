@@ -19,5 +19,7 @@ namespace QuizWebApp.Models
         /// </summary>
         public ContextStateType CurrentState { get; set; }
         
+        public int ArrivalNum { get; set; }
+        
     }
 }

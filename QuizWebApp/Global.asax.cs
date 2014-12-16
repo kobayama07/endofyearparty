@@ -30,7 +30,7 @@ namespace QuizWebApp
             {
                 if (db.Contexts.Any() == false)
                 {
-                    db.Contexts.Add(new Context { CurrentQuestionID = 1, CurrentState = ContextStateType.PleaseWait });
+                    db.Contexts.Add(new Context { CurrentQuestionID = 1, CurrentState = ContextStateType.PleaseWait, ArrivalNum=1; });
                     db.SaveChanges();
                 }
             }

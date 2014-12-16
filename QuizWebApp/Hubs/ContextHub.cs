@@ -34,9 +34,8 @@ namespace QuizWebApp.Hubs
                             a.ChosenOptionIndex == currentQuestion.IndexOfCorrectOption
                             ? AnswerStateType.Correct : AnswerStateType.Incorrect);
 
-                    //配布ポイント決定 answerで正解、不正解のユーザID取得->不正解ユーザのポイントを半分にする＋半分ずつを合計→正解ユーザで山分け　
+                    //配布ポイント決定
                     var correctAnswers = answers.Where(a => a.QuestionID == context.CurrentQuestionID && a.Status == AnswerStateType.Correct).ToList();
-
                     // **SORT**
                     correctAnswers.Sort((a, b) => a.Number - b.Number);
 
@@ -80,11 +79,10 @@ namespace QuizWebApp.Hubs
                 answer.ChosenOptionIndex = answerIndex;
                 answer.Status = AnswerStateType.Pending;/*entried*/
                 //answer.AnsweredTime = DateTime.UtcNow;
-
-                var currentQuestion = db.Questions.Find(questionId);
-                //★ AddArrivalNo
-                answer.Number = currentQuestion.ArrivalNum;
-                currentQuestion.ArrivalNum += 1;
+                //★ AddArrivalNum
+                var context = db.Contexts.First();
+                answer.Number = context.ArrivalNum;
+                context.ArrivalNum += 1;
 
                 db.SaveChanges();
             }

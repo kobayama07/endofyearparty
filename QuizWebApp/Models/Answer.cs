@@ -26,6 +26,5 @@ namespace QuizWebApp.Models
         // ★
         //public DateTime AnsweredTime { get; set; }
         public int Number { get; set; }
-        public int Score { get; set; }
     }
 }
