@@ -38,7 +38,7 @@ namespace QuizWebApp.Hubs
                     var correctAnswers = answers.Where(a => a.QuestionID == context.CurrentQuestionID && a.Status == AnswerStateType.Correct).ToList();
 
                     // **SORT**
-                    correctAnswers.Sort((a, b) => a.Number - b.Number)
+                    correctAnswers.Sort((a, b) => a.Number - b.Number);
 
                     int additionalPointPercent = 10;
                     int totalNum = correctAnswers.Count();
