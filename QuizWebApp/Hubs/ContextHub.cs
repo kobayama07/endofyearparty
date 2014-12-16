@@ -36,23 +36,32 @@ namespace QuizWebApp.Hubs
 
                     //配布ポイント決定 answerで正解、不正解のユーザID取得->不正解ユーザのポイントを半分にする＋半分ずつを合計→正解ユーザで山分け　
                     var correctAnswers = answers.Where(a => a.QuestionID == context.CurrentQuestionID && a.Status == AnswerStateType.Correct).ToList();
-                    // **SORTしたい**
-                    // 正解
-                    List<string> correctPlayers = new List<string>();
+
+                    // **SORT**
+                    correctAnswers.Sort((a, b) => a.Number - b.Number)
+
+                    int additionalPointPercent = 10;
+                    int totalNum = correctAnswers.Count();
+                    int aPointNum = totalNum * additionalPointRatio / 100;
                     int distributePoint = 100;
+                    int orderNum = 1;
+
                     //正解ユーザに配布
                      foreach (var a in correctAnswers)
                      {
                          var playerID = a.PlayerID;
                          var user = users.First(u => u.UserId == playerID);
                          int score = user.Score;
-                         user.Score = score + distributePoint;
-                         if(distributePoint != 1){
-                             distributePoint -= 1;
+                         if(orderNum > totalNum - aPointNum)
+                         {
+                             user.Score = score + (orderNum - totalNum - aPointNum) * distributePoint / aPointNum;
                          }
-                         correctPlayers.Add(playerID);
+                         else
+                         {
+                         	user.Score = score + 1;
+                         }
+                         orderNum ++;
                      }
-
                 }
                 db.SaveChanges();
             }
