@@ -4,7 +4,7 @@
 
 @{
     var q = Model.Questions.Find(Model.Contexts.First().CurrentQuestionID);
-    var a = Model.Answers.Finf(q.QuestionID);
+    var a = Model.Answers.Find(q.QuestionID);
 }
 <h3>問題</h3>
 
