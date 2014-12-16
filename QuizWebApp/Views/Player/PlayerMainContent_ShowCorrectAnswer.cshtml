@@ -6,10 +6,11 @@
     var q = Model.Questions.Find(Model.Contexts.First().CurrentQuestionID);
     var playerID = this.User.Identity.UserId();
     var yourAns = Model.Answers.First(a => a.PlayerID == playerID && a.QuestionID == q.QuestionId);
-    var choosed = yourAns.ChoosedOptionIndex >= 0 ? q.GetOptions()[yourAns.ChoosedOptionIndex - 1] : null;
+    var chosen = yourAns.ChosenOptionIndex >= 0 ? q.GetOptions()[yourAns.ChosenOptionIndex - 1] : null;
     var correctOption = q.GetOptions()[q.IndexOfCorrectOption - 1];
+    var user = Model.Users.First(u => u.UserId == playerID);
 }
-
+<h4>現在のスコア：@(user.Score)</h4>
 <h3>問題</h3>
 
 <div class="well well-small">
@@ -22,23 +23,30 @@
 
 <div class="well well-small">
     <div class="options">
-        @if (choosed == null)
+        @if (chosen == null)
         {
             <p>※回答は選択されませんでした</p>
         }
         else
         {
-            <div>@(choosed.Option)</div>
-            if (string.IsNullOrEmpty(choosed.OptionImage) == false)
+            <div>@(chosen.Option)</div>
+            @*if (string.IsNullOrEmpty(chosen.OptionImage) == false)
             {
-                <img src="@choosed.OptionImage" />
-            }
+                <img src="@chosen.OptionImage" />
+            }*@
         }
     </div>
 
     @if (yourAns.Status == AnswerStateType.Correct)
     {
-        <h3 class="correct">正解! :)</h3>
+        if (@yourAns.GotScore > 1)
+        {
+            <h3 class="correct">正解!! :) <br> +@(yourAns.GotScore) points!! :)</h3>
+        }
+        else
+        {
+            <h3 class="correct">正解! :) <br> +@(yourAns.GotScore) point</h3>
+        }
     }
     else
     {

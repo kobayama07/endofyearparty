@@ -13,7 +13,7 @@ namespace QuizWebApp.Models
 
         public int QuestionID { get; set; }
 
-        public int ChoosedOptionIndex { get; set; }
+        public int ChosenOptionIndex { get; set; }
 
         /// <summary>
         /// 0: no entry.
@@ -22,5 +22,10 @@ namespace QuizWebApp.Models
         /// 3: incorrect.
         /// </summary>
         public AnswerStateType Status { get; set; }
+
+        // ★
+        public int Number { get; set; }
+        public int GotScore { get; set; }
+        public int Restriction { get; set; }
     }
 }

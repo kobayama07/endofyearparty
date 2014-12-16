@@ -26,13 +26,43 @@ namespace QuizWebApp.Hubs
                         .Where(a => a.QuestionID == context.CurrentQuestionID)
                         .ToList();
                     var currentQuestion = db.Questions.Find(context.CurrentQuestionID);
+                    var users = db.Users.ToList();
 
+                    // If chosen option is correct, answer state is set to "Correct".
                     answers
                         .ForEach(a => a.Status =
-                            a.ChoosedOptionIndex == currentQuestion.IndexOfCorrectOption
+                            a.ChosenOptionIndex == currentQuestion.IndexOfCorrectOption
                             ? AnswerStateType.Correct : AnswerStateType.Incorrect);
-                }
 
+                    //配布ポイント決定
+                    var correctAnswers = answers.Where(a => a.QuestionID == context.CurrentQuestionID && a.Status == AnswerStateType.Correct).ToList();
+                    correctAnswers.Sort((a, b) => a.Number - b.Number);
+                    context.ArrivalNum = 1;
+
+                    double additionalPointRatio = 0.2;
+                    int totalNum = correctAnswers.Count();
+                    int aPointNum = (int)(totalNum * additionalPointRatio + 1);
+                    int distributePoint = 100;
+                    int orderNum = 1;
+
+                    //正解ユーザに配布
+                     foreach (var a in correctAnswers)
+                     {
+                         var playerID = a.PlayerID;
+                         var user = users.First(u => u.UserId == playerID);
+                         int score = user.Score;
+                         if(orderNum > totalNum - aPointNum)
+                         {
+                             a.GotScore = (orderNum - (totalNum - aPointNum))* distributePoint / aPointNum;
+                         }
+                         else
+                         {
+                             a.GotScore = 1;
+                         }
+                         user.Score = score + a.GotScore;
+                         orderNum ++;
+                     }
+                }
                 db.SaveChanges();
             }
 
@@ -43,11 +73,21 @@ namespace QuizWebApp.Hubs
         {
             using (var db = new QuizWebAppDb())
             {
+            	// Userが選択した際の挙動
                 var playerId = Context.User.Identity.UserId();
                 var questionId = db.Contexts.First().CurrentQuestionID;
-                var ansewer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
-                ansewer.ChoosedOptionIndex = answerIndex;
-                ansewer.Status = AnswerStateType.Pending;/*entried*/
+                var answer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
+                if (answer.Restriction < 2)
+                {
+                    answer.ChosenOptionIndex = answerIndex;
+                    answer.Status = AnswerStateType.Pending;/*entried*/
+                    //answer.AnsweredTime = DateTime.UtcNow;
+                    //★ AddArrivalNum
+                    var context = db.Contexts.First();
+                    answer.Number = context.ArrivalNum;
+                    context.ArrivalNum += 1;
+                    answer.Restriction += 1;
+                }
 
                 db.SaveChanges();
             }
