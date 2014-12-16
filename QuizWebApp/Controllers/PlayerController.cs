@@ -34,7 +34,7 @@ namespace QuizWebApp.Controllers
             var answer = this.DB.Answers.FirstOrDefault(a => a.PlayerID == playerID && a.QuestionID == questionID);
             if (answer == null)
             {
-                answer = new Answer { PlayerID = playerID, QuestionID = questionID, ChosenOptionIndex = -1 };
+                answer = new Answer { PlayerID = playerID, QuestionID = questionID, ChosenOptionIndex = -1, Restriction = 0 };
                 this.DB.Answers.Add(answer);
                 this.DB.SaveChanges();
             }

@@ -76,13 +76,17 @@ namespace QuizWebApp.Hubs
                 var playerId = Context.User.Identity.UserId();
                 var questionId = db.Contexts.First().CurrentQuestionID;
                 var answer = db.Answers.First(a => a.PlayerID == playerId && a.QuestionID == questionId);
-                answer.ChosenOptionIndex = answerIndex;
-                answer.Status = AnswerStateType.Pending;/*entried*/
-                //answer.AnsweredTime = DateTime.UtcNow;
-                //★ AddArrivalNum
-                var context = db.Contexts.First();
-                answer.Number = context.ArrivalNum;
-                context.ArrivalNum += 1;
+                if (answer.Restriction < 2)
+                {
+                    answer.ChosenOptionIndex = answerIndex;
+                    answer.Status = AnswerStateType.Pending;/*entried*/
+                    //answer.AnsweredTime = DateTime.UtcNow;
+                    //★ AddArrivalNum
+                    var context = db.Contexts.First();
+                    answer.Number = context.ArrivalNum;
+                    context.ArrivalNum += 1;
+                    answer.Restriction += 1;
+                }
 
                 db.SaveChanges();
             }

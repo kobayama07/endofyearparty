@@ -1,7 +1,7 @@
 ﻿@model QuizWebApp.Models.DashboardViewModel
 @using QuizWebApp.Models
 
-<table class="dashboard">
+<table class="dashboard">2F
     <tr>
         <th>回答者名</th>
         <th class="score">Score</th>
@@ -10,6 +10,8 @@
             <th>@("Q" + n.ToString())</th>
         }
     </tr>
+
+    Model.Players.Sort((a, b) => a.Score - b.Score);
 
     @foreach (var player in Model.Players)
     {

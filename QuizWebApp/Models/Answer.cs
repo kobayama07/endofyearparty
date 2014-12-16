@@ -26,5 +26,6 @@ namespace QuizWebApp.Models
         // ★
         public int Number { get; set; }
         public int GotScore { get; set; }
+        public int Restriction { get; set; }
     }
 }

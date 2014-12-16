@@ -4,6 +4,7 @@
 
 @{
     var q = Model.Questions.Find(Model.Contexts.First().CurrentQuestionID);
+    var a = Model.Answers.Finf(q.QuestionID);
 }
 <h3>問題</h3>
 
@@ -29,5 +30,9 @@
                 }
             </label>
         </div>
+    }
+    @if (a.Restriction >1)
+    {
+        <h3> LOCKED </h3>
     }
 </div>
